@@ -9,8 +9,8 @@ function App() {
   }
 
   const calculateWordCount = (text) => { // The text in the argument will not mutate the text in state as it's been passed down
-    console.log(text === "" ? 0 : text.trim().split(" ").length)
-    return text.trim().split(" ").length
+    console.log(text.trim().split(" ").filter(word => word !== "").length)
+    return text.trim().split(" ").filter(word => word !== "").length
   }
 
   return (
