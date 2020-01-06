@@ -4,6 +4,9 @@ import './App.css';
 function App() {
   const [text, setText] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(10);
+  const [isTimeRunning, setIsTimeRunning] = useState(false);
+
+  console.log(isTimeRunning)
 
   const handleChange = (e) => {
     setText(e.target.value)
@@ -15,19 +18,22 @@ function App() {
   }
 
   useEffect(() => {
-    if (timeRemaining > 0) {
-      setTimeout(() => {
-        setTimeRemaining(time => time - 1)
-      }, 1000)
-    }
-  }, [timeRemaining])
+      if (isTimeRunning && timeRemaining > 0) {
+        setTimeout(() => {
+          setTimeRemaining(time => time - 1)
+        }, 1000)
+      } else {
+        setIsTimeRunning(false)
+      }
+    
+  }, [timeRemaining, isTimeRunning])
 
   return (
     <div className="App">
       <h1>Speed Typing Game</h1>
       <textarea onChange={handleChange} />
       <h4>Time Remaining: {timeRemaining}</h4>
-      <button onClick={() => calculateWordCount(text)}>Start Game</button>
+<button onClick={() => setIsTimeRunning(true) && calculateWordCount(text)}>Start Game</button>
       <h1>Word Count: </h1>
     </div>
   );
