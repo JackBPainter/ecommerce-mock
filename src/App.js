@@ -1,48 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './App.css';
+import useTypingGame from "./useTypingGame"
 
 function App() {
-  const start_time = 5
+  const [
+    handleChange, 
+    text, 
+    isTimeRunning, 
+    startGame, 
+    wordCount, 
+    timeRemaining, 
+    textAreaRef
+  ] = useTypingGame(10)
 
-  const [text, setText] = useState("");
-  const [timeRemaining, setTimeRemaining] = useState(start_time);
-  const [isTimeRunning, setIsTimeRunning] = useState(false);
-  const [wordCount, setWordCount] = useState(0)
+  // const startGame = () => {
+  //   setIsTimeRunning(true)
+  //   setTimeRemaining(start_time)
+  //   setText("")
+  //   textAreaRef.current.disabled = false
+  //   textAreaRef.current.focus()
+  // }
 
-  const textAreaRef = useRef();
-
-
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
-
-  const calculateWordCount = (text) => { // The text in the argument will not mutate the text in state as it's been passed down
-    return text.trim().split(" ").filter(word => word !== "").length
-  }
-
-  const startGame = () => {
-    setIsTimeRunning(true)
-    setTimeRemaining(start_time)
-    setText("")
-    textAreaRef.current.disabled = false
-    textAreaRef.current.focus()
-  }
-
-  const endGame = () => {
-    setIsTimeRunning(false)
-    setWordCount(calculateWordCount(text))
-  }
-
-  useEffect(() => {
-    if (isTimeRunning && timeRemaining > 0) {
-      setTimeout(() => {
-        setTimeRemaining(time => time - 1)
-      }, 1000)
-    } else {
-      endGame()
-    }
-
-  }, [timeRemaining, isTimeRunning])
 
   return (
     <div className="App">
