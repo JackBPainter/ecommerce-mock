@@ -6,6 +6,8 @@ const ContextProvider = ({ children }) => {
     const [allPhotos, setAllPhotos] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
+    console.log(allPhotos)
+
     const photosUrl = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
 
     useEffect(() => {
@@ -15,8 +17,19 @@ const ContextProvider = ({ children }) => {
             .then(data => setAllPhotos(data) && setIsLoading(false)) 
     }, [])
 
+    const toggleFavourite = id => {
+        const newArr = allPhotos.map(photo => {
+            if(photo.id === id) {
+                console.log(id)
+                return {...photo, isFavorite: !photo.isFavorite}
+            }
+            return photo
+        }) 
+        setAllPhotos(newArr)
+    }
+
     return (
-        <AppContext.Provider value={{ allPhotos, isLoading }}>
+        <AppContext.Provider value={{ allPhotos, isLoading, toggleFavourite }}>
             {children}
         </AppContext.Provider>
     )
