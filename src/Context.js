@@ -37,7 +37,7 @@ const ContextProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ allPhotos, isLoading, toggleFavourite, cartItems, addToCart, removeFromCart}}>
+        <AppContext.Provider value={{ allPhotos, isLoading, toggleFavourite, cartItems, addToCart, removeFromCart }}>
             {children}
         </AppContext.Provider>
     )

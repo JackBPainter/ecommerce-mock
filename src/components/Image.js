@@ -4,11 +4,11 @@ import { AppContext } from "../Context"
 
 const Image = ({className, img}) => {
     const [isHovered, setIsHovered] = useState(false)   
-    const { toggleFavourite, addToCart, cartItems, removeFromCart } = React.useContext(AppContext)
+    const { toggleFavourite, addToCart, cartItems, removeFromCartId } = React.useContext(AppContext)
     
     const addToCartIcon = isHovered && <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
     const addedToCartIcon = cartItems.find(cartItem => cartItem.id === img.id) && 
-        <i className="ri-shopping-cart-fill cart" onClick={() => removeFromCart(img.id)}></i>
+        <i className="ri-shopping-cart-fill cart" onClick={() => removeFromCartId(img.id)}></i>
 
     const heartIcon = isHovered && <i className="ri-heart-line favorite" onClick={() => toggleFavourite(img.id)}></i> 
     const heartFillIcon = img.isFavorite === true && 
