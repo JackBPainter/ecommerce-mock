@@ -1,15 +1,18 @@
-import React, { useState, useContext } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { AppContext } from "../Context"
 
 const Image = ({className, img}) => {
     const [isHovered, setIsHovered] = useState(false)   
-    const { toggleFavourite, allPhotos } = React.useContext(AppContext)
+    const { toggleFavourite, addToCart, cartItems } = React.useContext(AppContext)
 
-    const plusIcon = isHovered === true && <i className="ri-add-circle-line cart"></i>
-    const heartIcon = isHovered === true && <i className="ri-heart-line favorite" onClick={() => toggleFavourite(img.id)}></i> 
+    const addToCartIcon = isHovered && <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
+    const addedToCartIcon = cartItems.find(cartItem => cartItem.id === img.id) && <i className="ri-shopping-cart-fill cart"></i>
+
+    const heartIcon = isHovered && <i className="ri-heart-line favorite" onClick={() => toggleFavourite(img.id)}></i> 
     const heartFillIcon = img.isFavorite === true && <i className="ri-heart-fill favorite" onClick={() => toggleFavourite(img.id)}></i>
     
+
     // function heartIcon() {
     //     if(img.isFavorite) {
     //         return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
@@ -17,7 +20,6 @@ const Image = ({className, img}) => {
     //         return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
     //     }
     // }
-
    
     return (
         <div
@@ -26,7 +28,7 @@ const Image = ({className, img}) => {
             onMouseLeave={() => setIsHovered(false)}
         >
         {heartFillIcon || heartIcon} 
-        {plusIcon}
+        {addedToCartIcon || addToCartIcon}
             <img className="image-grid" src={img.url} alt=""/> 
         </div>
     )
@@ -42,4 +44,3 @@ Image.propTypes = {
 }
 
 export default Image
-
