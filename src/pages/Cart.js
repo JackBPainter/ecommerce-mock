@@ -29,7 +29,9 @@ const Cart = () => {
             {cartItemElements}
             <p className="total-cost">Total: {totalCost()}</p>
             <div className="order-button">
+            {cartItems.length > 0 &&
             <button onClick={placeOrderButton}>{buttonText}</button>
+            }
             </div>
         </main>
     )
