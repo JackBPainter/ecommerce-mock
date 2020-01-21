@@ -1,21 +1,21 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { AppContext } from "../Context"
+import useHover from "../hooks/useHover";
 import PropTypes from "prop-types"
 
 const CartItem = ({ item }) => {
-    const [hovered, setHovered] = useState(false)
     const { removeFromCart } = useContext(AppContext)
+    const [hovered, hoverRef] = useHover()
 
     const iconClassName = hovered ? "ri-delete-bin-fill" : "ri-delete-bin-line"
-    console.log(item)
 
     return (
         <div className="cart-item">
             <i
                 className={iconClassName}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                onClick={() => removeFromCart(item.id)}>
+                onClick={() => removeFromCart(item.id)}
+                ref={hoverRef}
+            >
             </i>
             <img src={item.url} width="130px" alt="" />
             <p>£5.99</p>
